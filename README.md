@@ -1,6 +1,6 @@
 # Feedback Assistant (FastAPI + Groq)
 
-A small feedback assistant API with a built-in web UI, deployable on Vercel.
+A small feedback assistant API with a built-in web UI, deployable on Render.
 
 ## Features
 
@@ -20,18 +20,28 @@ uvicorn main:app --reload
 
 Open `http://127.0.0.1:8000`.
 
-## Deploy to Vercel
+## Deploy to Render
+
+### Option 1: Blueprint deploy (recommended)
 
 1. Push this project to GitHub.
-2. In Vercel, click **Add New Project** and import the repo.
-3. Framework preset: **Other**.
-4. Add environment variable:
+2. In Render, click **New +** -> **Blueprint**.
+3. Connect the repository and deploy.
+4. In the created service, set environment variable:
    - `GROQ_API_KEY`: your Groq API key
-5. Deploy.
 
-This repo includes:
-- `vercel.json` for routing and Python build
-- `api/index.py` as Vercel entrypoint
+This repo includes `render.yaml`, which configures:
+- `buildCommand`: `pip install -r requirements.txt`
+- `startCommand`: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+
+### Option 2: Manual Web Service
+
+1. In Render, create a **Web Service** from this repo.
+2. Runtime: `Python 3`.
+3. Build command: `pip install -r requirements.txt`.
+4. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+5. Add environment variable `GROQ_API_KEY`.
+6. Deploy.
 
 ## API Reference
 
@@ -75,5 +85,5 @@ Response:
 
 ## Notes
 
-- Ensure `GROQ_API_KEY` is set in Vercel project settings.
+- Ensure `GROQ_API_KEY` is set in Render environment settings.
 - The `/` route serves the web UI and calls `/chat` internally.
