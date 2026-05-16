@@ -33,11 +33,12 @@ Open `http://127.0.0.1:8000`.
 This repo includes `render.yaml`, which configures:
 - `buildCommand`: `pip install -r requirements.txt`
 - `startCommand`: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- `PYTHON_VERSION`: `3.12.8`
 
 ### Option 2: Manual Web Service
 
 1. In Render, create a **Web Service** from this repo.
-2. Runtime: `Python 3`.
+2. Runtime: `Python 3.12`.
 3. Build command: `pip install -r requirements.txt`.
 4. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`.
 5. Add environment variable `GROQ_API_KEY`.
@@ -86,4 +87,5 @@ Response:
 ## Notes
 
 - Ensure `GROQ_API_KEY` is set in Render environment settings.
+- Python version is pinned to `3.12.8` via `render.yaml` (and `runtime.txt` as a secondary pin).
 - The `/` route serves the web UI and calls `/chat` internally.
